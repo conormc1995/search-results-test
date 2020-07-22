@@ -10,12 +10,7 @@ jobs:
           command: npm install
 
       - run:
-          command: |
-           npm run start & 
-           npx wait-on http://localhost:3000
-         # replace below with command you want to run, example for running a script below
-          node se.js
-
+          command: node se.js
 # # example for running on a schedule, edit to suit your use case
 # # documentation: https://circleci.com/docs/2.0/configuration-reference/#schedule
 # workflows:
