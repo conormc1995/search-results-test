@@ -35,7 +35,6 @@ async function getActualResults(queries) {
   let actualCourseListMulti = [];
 
   await page.goto("http://www.alison.com");
-  let harry = 0;
 
   for (let query of queries) {
     //Go to Alison and search a query
