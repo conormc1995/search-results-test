@@ -26,9 +26,7 @@ async function mainFunction() {
 }
 
 async function getActualResults(queries) {
-  const browser = await playwright["chromium"].launch({
-    headless: false,
-  });
+  const browser = await playwright["chromium"].launch();
 
   const context = await browser.newContext();
   const page = await context.newPage();
