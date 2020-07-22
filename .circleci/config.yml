@@ -7,7 +7,7 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node:
+      - node/with-cache:
           steps:
             - run: npm install
             - run: npm se.js
