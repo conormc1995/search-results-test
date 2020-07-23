@@ -40,8 +40,8 @@ workflows:
     triggers:
       - schedule:
         # test on schedule using cron syntax
-          cron: "15 13 * * *" # every hour
-            filters:
-              branches:
-                only:
-                  - master
+        cron: "15 13 * * *" # every hour
+          filters:
+            branches:
+              only:
+                - master
