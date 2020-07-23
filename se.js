@@ -26,10 +26,7 @@ async function mainFunction() {
 }
 
 async function getActualResults(queries) {
-  const browser = await playwright["chromium"].launch({
-    headless: true,
-    args: ["--no-sandbox"],
-  });
+  const browser = await playwright["chromium"].launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] };
 
   const context = await browser.newContext();
   const page = await context.newPage();
