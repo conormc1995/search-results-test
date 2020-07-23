@@ -12,14 +12,14 @@ jobs:
       - run:
           command: node se.js
 
- workflows:
+workflows:
   version: 2
   on_schedule:
     jobs:
       - build
     triggers:
       - schedule:
-           # test on schedule using cron syntax
+        # test on schedule using cron syntax
         cron: "15 13 * * *" # every hour
         filters:
           branches:
