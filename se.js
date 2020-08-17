@@ -1,10 +1,35 @@
 const playwright = require("playwright");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
+const nodemailer = require("nodemailer");
 const creds = require("./client_secret.json");
 
 const doc = new GoogleSpreadsheet(
   "1o0kJeili9G6hAlGf8fy3ZsM9VvEcqjYOFAqzBm3j9vM"
 );
+
+//E-mail
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "conormcloughlin64@gmail.com",
+    pass: "galway13",
+  },
+});
+
+var mailOptions = {
+  from: "conormcloughlin64@gmail.com",
+  to: "cmcloughlin@alison.com",
+  subject: "Sending Email using Node.js",
+  text: "That was easy!",
+};
+
+transporter.sendMail(mailOptions, function (error, info) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Email sent: " + info.response);
+  }
+});
 
 //Globals
 let numberOfQueries = 50;
@@ -154,6 +179,7 @@ async function compareResults(idealCourseList, actualCourseList) {
         x = x + 1;
 
         writeCell = await sheet.getCell(x, queryIndex);
+        writeCell.clearAllFormatting();
         writeCell.value = i;
         //Check if actual course is in same position
         if (idealCourseList[queryIndex][x - 1] != i) {
@@ -168,6 +194,7 @@ async function compareResults(idealCourseList, actualCourseList) {
         let x = actualCourseList[queryIndex].indexOf(i);
         x = x + 1;
         writeCell = await sheet.getCell(x, queryIndex);
+        writeCell.clearAllFormatting();
 
         writeCell.backgroundColor = {
           red: 1,
