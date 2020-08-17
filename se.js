@@ -23,14 +23,6 @@ var mailOptions = {
   text: "That was easy!",
 };
 
-transporter.sendMail(mailOptions, function (error, info) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Email sent: " + info.response);
-  }
-});
-
 //Globals
 let numberOfQueries = 50;
 let numberOfIdealResults = 20;
@@ -210,13 +202,40 @@ async function compareResults(idealCourseList, actualCourseList) {
   await sheet.saveUpdatedCells();
 }
 
-async function testResults(idealCourseList, actualCourseList) {
+async function checkExpectedResultsArePresent(
+  idealCourseList,
+  actualCourseList
+) {
   let queryIndex;
 
   for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
-    for (i of actualCourseList[queryIndex]) {
+    for (i of idealCourseList[queryIndex]) {
+      if (!actualCourseList[queryIndex].includes(i)) {
+        /*
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });*/
+
+        return 1;
+      } else {
+        return 0;
+      }
     }
   }
 }
+
+test("Test for missing expected results", async (idealCourseList, actualCourseList) => {
+  let queryIndex;
+
+  for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
+    for (i of idealCourseList[queryIndex]) {
+      expect(actualCourseList[queryIndex]).toContain(i);
+    }
+  }
+});
 
 mainFunction();
