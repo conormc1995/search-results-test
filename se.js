@@ -210,4 +210,13 @@ async function compareResults(idealCourseList, actualCourseList) {
   await sheet.saveUpdatedCells();
 }
 
+async function testResults(idealCourseList, actualCourseList) {
+  let queryIndex;
+
+  for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
+    for (i of actualCourseList[queryIndex]) {
+    }
+  }
+}
+
 mainFunction();
