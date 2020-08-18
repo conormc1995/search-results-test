@@ -231,7 +231,12 @@ async function checkMissingResults(idealCourseList, actualCourseList, queries) {
         writeCell = sheet.getCell(rowNumber, queryIndex);
         writeCell.clearAllFormatting();
         writeCell.value = i;
-        writeCell.backgroundColor = red;
+        writeCell.backgroundColor = {
+          red: 1,
+          green: 0.3,
+          blue: 0.3,
+          alpha: 0.3,
+        };
         rowNumber += 1;
       }
     }
