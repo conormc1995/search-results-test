@@ -40,7 +40,7 @@ async function mainFunction() {
   console.log(actualResultsList);
   //compare contents of array and output results to separate Google Sheet
   compareResults(idealResultsList, actualResultsList);
-  checkMissingResults(idealResultsList, actualResultsList);
+  checkMissingResults(idealResultsList, actualResultsList, queries);
 }
 
 async function getActualResults(queries) {
@@ -203,7 +203,7 @@ async function compareResults(idealCourseList, actualCourseList) {
   await sheet.saveUpdatedCells();
 }
 
-async function checkMissingResults(idealCourseList, actualCourseList) {
+async function checkMissingResults(idealCourseList, actualCourseList, queries) {
   let queryIndex;
 
   await doc.useServiceAccountAuth({
@@ -219,6 +219,10 @@ async function checkMissingResults(idealCourseList, actualCourseList) {
 
   for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
     let rowNumber = 1;
+
+    //add headings to sheet
+    writeCell = sheet.getCell(0, queryIndex);
+    writeCell.value = queries[queryIndex];
 
     for (i of idealCourseList[queryIndex]) {
       if (actualCourseList[queryIndex].includes(i)) {
