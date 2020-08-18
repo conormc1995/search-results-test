@@ -200,31 +200,33 @@ async function compareResults(idealCourseList, actualCourseList) {
     }
   }
 
-  async function checkMissingResults(idealCourseList, actualCourseList) {
-    let queryIndex;
+  await sheet.saveUpdatedCells();
+}
 
-    await doc.useServiceAccountAuth({
-      client_email: creds.client_email,
-      private_key: creds.private_key,
-    });
+async function checkMissingResults(idealCourseList, actualCourseList) {
+  let queryIndex;
 
-    await doc.loadInfo(); // loads document properties and worksheets
+  await doc.useServiceAccountAuth({
+    client_email: creds.client_email,
+    private_key: creds.private_key,
+  });
 
-    const sheet = doc.sheetsByIndex[1];
-    await sheet.loadCells(activeCells);
-    let writeCell = sheet.getCell(0, 0);
+  await doc.loadInfo(); // loads document properties and worksheets
 
-    for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
-      let rowNumber = 40;
+  const sheet = doc.sheetsByIndex[1];
+  await sheet.loadCells(activeCells);
+  let writeCell = sheet.getCell(0, 0);
 
-      for (i of idealCourseList[queryIndex]) {
-        if (actualCourseList[queryIndex].includes(i)) {
-          console.log("included");
-        } else {
-          writeCell = sheet.getCell(rowNumber, queryIndex);
-          writeCell.value = i;
-          rowNumber += 1;
-        }
+  for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
+    let rowNumber = 40;
+
+    for (i of idealCourseList[queryIndex]) {
+      if (actualCourseList[queryIndex].includes(i)) {
+        console.log("included");
+      } else {
+        writeCell = sheet.getCell(rowNumber, queryIndex);
+        writeCell.value = i;
+        rowNumber += 1;
       }
     }
   }
