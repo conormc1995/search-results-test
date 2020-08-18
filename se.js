@@ -40,16 +40,6 @@ async function mainFunction() {
   console.log(actualResultsList);
   //compare contents of array and output results to separate Google Sheet
   compareResults(idealResultsList, actualResultsList);
-
-  test("Test for missing expected results", async (idealCourseList, actualCourseList) => {
-    let queryIndex;
-
-    for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
-      for (i of idealCourseList[queryIndex]) {
-        expect(actualCourseList[queryIndex]).toContain(i);
-      }
-    }
-  });
 }
 
 async function getActualResults(queries) {
@@ -205,6 +195,23 @@ async function compareResults(idealCourseList, actualCourseList) {
           alpha: 0.3,
         };
         writeCell.value = i;
+      }
+    }
+  }
+
+  async function checkExpectedResultsArePresent(
+    idealCourseList,
+    actualCourseList
+  ) {
+    let queryIndex;
+
+    for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
+      for (i of idealCourseList[queryIndex]) {
+        if (actualCourseList[queryIndex].includes(i)) {
+          return 0;
+        } else {
+          return i;
+        }
       }
     }
   }

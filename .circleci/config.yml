@@ -33,15 +33,6 @@ jobs:
           command: node se.js
 
 workflows:
-  version: 2
-  on_schedule:
+  build-and-test:
     jobs:
       - build
-    triggers:
-      - schedule:
-          # test on schedule using cron syntax
-          cron: "25 8 * * *" # every hour
-          filters:
-            branches:
-              only:
-                - master
