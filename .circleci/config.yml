@@ -32,6 +32,8 @@ jobs:
       - run:
           command: node se.js
 
+      - run:
+
 workflows:
   version: 2
   on_schedule:
@@ -40,7 +42,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "13 8 * * *" # every hour
+          cron: "20 8 * * *" # every hour
           filters:
             branches:
               only:
