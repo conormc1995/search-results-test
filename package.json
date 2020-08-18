@@ -16,6 +16,12 @@
   "scripts": {
     "test": "jest"
   },
+  "jest": {
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
