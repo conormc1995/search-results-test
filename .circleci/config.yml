@@ -33,6 +33,6 @@ jobs:
           command: node se.js
 
 workflows:
-  build-and-test:
+  build:
     jobs:
       - build
