@@ -225,7 +225,9 @@ async function checkMissingResults(idealCourseList, actualCourseList) {
         console.log("included");
       } else {
         writeCell = sheet.getCell(rowNumber, queryIndex);
+        writeCell.clearAllFormatting();
         writeCell.value = i;
+        writeCell.backgroundColor = red;
         rowNumber += 1;
       }
     }
