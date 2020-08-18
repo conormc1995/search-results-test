@@ -213,12 +213,12 @@ async function checkMissingResults(idealCourseList, actualCourseList) {
 
   await doc.loadInfo(); // loads document properties and worksheets
 
-  const sheet = doc.sheetsByIndex[1];
+  const sheet = doc.sheetsByIndex[2];
   await sheet.loadCells(activeCells);
   let writeCell = sheet.getCell(0, 0);
 
   for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
-    let rowNumber = 40;
+    let rowNumber = 1;
 
     for (i of idealCourseList[queryIndex]) {
       if (actualCourseList[queryIndex].includes(i)) {
