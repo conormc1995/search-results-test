@@ -2,6 +2,7 @@ const playwright = require("playwright");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 const nodemailer = require("nodemailer");
 const creds = require("./client_secret.json");
+const checkExpectedResultsArePresent = require("./se");
 
 const doc = new GoogleSpreadsheet(
   "1o0kJeili9G6hAlGf8fy3ZsM9VvEcqjYOFAqzBm3j9vM"
@@ -40,8 +41,6 @@ async function mainFunction() {
   console.log(actualResultsList);
   //compare contents of array and output results to separate Google Sheet
   compareResults(idealResultsList, actualResultsList);
-
-  //check for missing results
   checkExpectedResultsArePresent(idealResultsList, actualResultsList);
 }
 
@@ -202,33 +201,37 @@ async function compareResults(idealCourseList, actualCourseList) {
     }
   }
 
-  //Check for missing expected results
-  //if an expected result is missing
-  //add it to an array of missing results
-  //return missing results array
   async function checkExpectedResultsArePresent(
     idealCourseList,
     actualCourseList
   ) {
     let queryIndex;
-    let missingResults = [];
-    let missingResultsMulti = [];
+
+    await doc.useServiceAccountAuth({
+      client_email: creds.client_email,
+      private_key: creds.private_key,
+    });
+
+    await doc.loadInfo(); // loads document properties and worksheets
+
+    const sheet = doc.sheetsByIndex[1];
+    await sheet.loadCells(activeCells);
+    let writeCell = sheet.getCell(0, 0);
 
     for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
+      let rowNumber = 40;
+
       for (i of idealCourseList[queryIndex]) {
         if (actualCourseList[queryIndex].includes(i)) {
-          console.log("is Present");
+          console.log("included");
         } else {
-          missingResults.push(i);
+          writeCell = sheet.getCell(rowNumber, queryIndex);
+          writeCell.value = i;
+          rowNumber += 1;
         }
       }
-      missingResultsMulti.push(missingResults);
     }
-
-    return missingResultsMulti;
   }
-
-  module.exports = checkExpectedResultsArePresent;
 
   await sheet.saveUpdatedCells();
 }

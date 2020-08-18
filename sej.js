@@ -40,6 +40,9 @@ async function mainFunction() {
   console.log(actualResultsList);
   //compare contents of array and output results to separate Google Sheet
   compareResults(idealResultsList, actualResultsList);
+
+  //check for missing results
+  checkExpectedResultsArePresent(idealResultsList, actualResultsList);
 }
 
 async function getActualResults(queries) {
@@ -199,22 +202,33 @@ async function compareResults(idealCourseList, actualCourseList) {
     }
   }
 
+  //Check for missing expected results
+  //if an expected result is missing
+  //add it to an array of missing results
+  //return missing results array
   async function checkExpectedResultsArePresent(
     idealCourseList,
     actualCourseList
   ) {
     let queryIndex;
+    let missingResults = [];
+    let missingResultsMulti = [];
 
     for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
       for (i of idealCourseList[queryIndex]) {
         if (actualCourseList[queryIndex].includes(i)) {
-          return 0;
+          console.log("is Present");
         } else {
-          return i;
+          missingResults.push(i);
         }
       }
+      missingResultsMulti.push(missingResults);
     }
+
+    return missingResultsMulti;
   }
+
+  module.exports = checkExpectedResultsArePresent;
 
   await sheet.saveUpdatedCells();
 }
