@@ -2,7 +2,6 @@ const playwright = require("playwright");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 const nodemailer = require("nodemailer");
 const creds = require("./client_secret.json");
-const checkExpectedResultsArePresent = require("./se");
 
 const doc = new GoogleSpreadsheet(
   "1o0kJeili9G6hAlGf8fy3ZsM9VvEcqjYOFAqzBm3j9vM"
@@ -41,7 +40,7 @@ async function mainFunction() {
   console.log(actualResultsList);
   //compare contents of array and output results to separate Google Sheet
   compareResults(idealResultsList, actualResultsList);
-  checkExpectedResultsArePresent(idealResultsList, actualResultsList);
+  checkMissingResults(idealResultsList, actualResultsList);
 }
 
 async function getActualResults(queries) {
@@ -201,10 +200,7 @@ async function compareResults(idealCourseList, actualCourseList) {
     }
   }
 
-  async function checkExpectedResultsArePresent(
-    idealCourseList,
-    actualCourseList
-  ) {
+  async function checkMissingResults(idealCourseList, actualCourseList) {
     let queryIndex;
 
     await doc.useServiceAccountAuth({
