@@ -30,12 +30,16 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: npm test
-
-      - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
-          command: npm jest-- --ci --testResultsProcessor="jest-junit-reporter"
+          command: jest --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+
+      - store_test_results:
+          path: ./reports/junit/
+      - store_artifacts:
+          path: ./reports/junit
 
 workflows:
   version: 2
@@ -50,3 +54,5 @@ workflows:
             branches:
               only:
                 - master
+
+.  
