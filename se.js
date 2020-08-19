@@ -40,8 +40,15 @@ async function mainFunction() {
   console.log(actualResultsList);
   //compare contents of array and output results to separate Google Sheet
   compareResults(idealResultsList, actualResultsList);
-  checkMissingResults(idealResultsList, actualResultsList, queries);
+  let missingResultsOmitted = checkMissingResults(
+    idealResultsList,
+    actualResultsList,
+    queries
+  );
+  return missingResultsOmitted;
 }
+
+module.exports = "mainFunction()";
 
 async function getActualResults(queries) {
   const browser = await playwright["chromium"].launch({
@@ -205,6 +212,7 @@ async function compareResults(idealCourseList, actualCourseList) {
 
 async function checkMissingResults(idealCourseList, actualCourseList, queries) {
   let queryIndex;
+  let updatedQueries = queries;
 
   await doc.useServiceAccountAuth({
     client_email: creds.client_email,
@@ -230,11 +238,15 @@ async function checkMissingResults(idealCourseList, actualCourseList, queries) {
         writeCell.value = i;
 
         rowNumber += 1;
+
+        //remove query
+        updatedQueries.splice(queryIndex, 1);
       }
     }
   }
 
   await sheet.saveUpdatedCells();
+  return updatedQueries;
 }
 
 async function wait(ms) {

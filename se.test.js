@@ -1,6 +1,60 @@
-const checkExpectedResultsArePresent = require("./se");
+const mainFunction = require("./se");
 
 //expect there to be 0 missing results
 test("Test for missing expected results", async () => {
-  expect(checkExpectedResultsArePresent).toEqual([]);
+  let queries = [
+    "excel",
+    "project management",
+    "python",
+    "digital marketing",
+    "english",
+    "psychology",
+    "accounting",
+    "law",
+    "photography",
+    "graphic design",
+    "marketing",
+    "hr",
+    "c",
+    "french",
+    "nutrition",
+    "microsoft",
+    "writing",
+    "sql",
+    "photoshop",
+    "human resources",
+    "java",
+    "spanish",
+    "music",
+    "safety",
+    "education",
+    "typing",
+    "iso",
+    "sales",
+    "seo",
+    "finance",
+    "coronavirus",
+    "data science",
+    "nursing",
+    "real estate",
+    "management",
+    "customer service",
+    "mental health",
+    "food",
+    "teaching",
+    "leadership",
+    "math",
+    "health and safety",
+    "logistics",
+    "social media",
+    "microsoft office",
+    "html",
+    "sap",
+    "health",
+    "german",
+    "adobe",
+  ];
+  for (let query of queries) {
+    expect(mainFunction()).toContain(query);
+  }
 });
