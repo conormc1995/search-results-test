@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite id="0" name="C:\Users\Diego\play\se.test.js" errors="0" package="C:\Users\Diego\play\se.test.js" hostname="localhost" tests="1" failures="1" time="282.49" timestamp="2020-08-19T12:09:48">
+    <properties>
+    </properties>
+    <testcase classname="Test for missing expected results" name="Test for missing expected results" time="0">
+      <failure message="Error: [2mexpect([22m[31mreceived[39m[2m).[22mresolves[2m.[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+Expected: [32m&quot;empty array&quot;[39m
+Received: [31m[&quot;digital marketing&quot;, &quot;english&quot;, &quot;accounting&quot;, &quot;law&quot;, &quot;marketing&quot;, &quot;c&quot;, &quot;microsoft&quot;, &quot;safety&quot;, &quot;iso&quot;, &quot;sales&quot;, &quot;coronavirus&quot;, &quot;data science&quot;, &quot;management&quot;, &quot;food&quot;, &quot;math&quot;, &quot;health and safety&quot;, &quot;logistics&quot;, &quot;microsoft office&quot;, &quot;html&quot;, &quot;sap&quot;, &quot;health&quot;][39m
+    at Object.toBe (C:\Users\Diego\play\node_modules\expect\build\index.js:198:20)
+    at Object.&lt;anonymous&gt; (C:\Users\Diego\play\se.test.js:58:32)
+    at Object.asyncJestTest (C:\Users\Diego\play\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:106:37)
+    at C:\Users\Diego\play\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (C:\Users\Diego\play\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at C:\Users\Diego\play\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)" type="AssertionError">
+      </failure>
+    </testcase>
+    <system-out/>
+    <system-err/>
+  </testsuite>
+</testsuites>

@@ -212,7 +212,7 @@ async function compareResults(idealCourseList, actualCourseList) {
 
 async function checkMissingResults(idealCourseList, actualCourseList, queries) {
   let queryIndex;
-  let updatedQueries = queries;
+  let updatedQueries = [];
 
   await doc.useServiceAccountAuth({
     client_email: creds.client_email,
@@ -228,31 +228,31 @@ async function checkMissingResults(idealCourseList, actualCourseList, queries) {
   for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
     //add headings to sheet
 
-    for (i of idealCourseList[queryIndex]) {
+    for (let i of idealCourseList[queryIndex]) {
       let rowNumber = 1;
-      if (actualCourseList[queryIndex].includes(i)) {
-        console.log("included");
-      } else {
-        writeCell = sheet.getCell(rowNumber, queryIndex);
+      if (i != null) {
+        if (actualCourseList[queryIndex].includes(i)) {
+          console.log("included");
+        } else {
+          writeCell = sheet.getCell(rowNumber, queryIndex);
 
-        writeCell.value = i;
+          writeCell.value = i;
 
-        rowNumber += 1;
+          rowNumber += 1;
 
-        //remove query
-        updatedQueries.splice(queryIndex, 1);
+          console.log(i);
+          //remove query
+          updatedQueries.push(queries[queryIndex]);
+        }
       }
     }
   }
 
   await sheet.saveUpdatedCells();
-  return updatedQueries;
-}
 
-async function wait(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
+  //remove duplicates
+  let updatedQueriesArray = Array.from(new Set(updatedQueries));
+  return updatedQueriesArray;
 }
 
 se();
