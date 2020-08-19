@@ -30,9 +30,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: node se.js
-
-      - run:
           command: npm test
 
       - run:
