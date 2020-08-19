@@ -29,7 +29,7 @@ let numberOfIdealResults = 20;
 let activeCells = "A1:AZ40";
 
 //MAIN LOOP
-async function mainFunction() {
+async function se() {
   //get queries from Google Sheet
   let queries = await getQueries();
   //get ideal Courses from Google Sheet
@@ -48,7 +48,7 @@ async function mainFunction() {
   return missingResultsOmitted;
 }
 
-module.exports = "mainFunction()";
+module.exports = se;
 
 async function getActualResults(queries) {
   const browser = await playwright["chromium"].launch({
@@ -255,4 +255,4 @@ async function wait(ms) {
   });
 }
 
-mainFunction();
+se();

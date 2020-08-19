@@ -1,4 +1,4 @@
-const mainFunction = require("./se");
+const mainFunction = require("./se.js");
 
 //expect there to be 0 missing results
 test("Test for missing expected results", async () => {
