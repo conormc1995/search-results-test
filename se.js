@@ -218,28 +218,16 @@ async function checkMissingResults(idealCourseList, actualCourseList, queries) {
   let writeCell = sheet.getCell(0, 0);
 
   for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
-    let rowNumber = 1;
-
     //add headings to sheet
 
-    writeCell = sheet.getCell(0, queryIndex);
-    writeCell.backgroundColor = {
-      red: 0.2,
-      green: 1,
-      blue: 0.2,
-      alpha: 0.5,
-    };
-    writeCell.value = queries[queryIndex];
-
     for (i of idealCourseList[queryIndex]) {
+      let rowNumber = 1;
       if (actualCourseList[queryIndex].includes(i)) {
         console.log("included");
       } else {
         writeCell = sheet.getCell(rowNumber, queryIndex);
-        await wait(1000);
 
         writeCell.value = i;
-        await wait(1000);
 
         rowNumber += 1;
       }
