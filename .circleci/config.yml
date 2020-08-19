@@ -39,7 +39,6 @@ jobs:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
           command: npm jest-- --ci --testResultsProcessor="jest-junit-reporter"
-          TEST-REPORT-PATH:
 
 workflows:
   version: 2
