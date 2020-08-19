@@ -236,8 +236,10 @@ async function checkMissingResults(idealCourseList, actualCourseList, queries) {
         console.log("included");
       } else {
         writeCell = sheet.getCell(rowNumber, queryIndex);
+        await wait(1000);
 
         writeCell.value = i;
+        await wait(1000);
 
         rowNumber += 1;
       }
@@ -245,6 +247,12 @@ async function checkMissingResults(idealCourseList, actualCourseList, queries) {
   }
 
   await sheet.saveUpdatedCells();
+}
+
+async function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 mainFunction();
