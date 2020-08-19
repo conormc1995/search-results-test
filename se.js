@@ -221,7 +221,7 @@ async function checkMissingResults(idealCourseList, actualCourseList, queries) {
     let rowNumber = 1;
 
     //add headings to sheet
-    sheet.clear();
+
     writeCell = sheet.getCell(0, queryIndex);
     writeCell.backgroundColor = {
       red: 0.2,
