@@ -45,7 +45,8 @@ async function se() {
     actualResultsList,
     queries
   );
-  return missingResultsOmitted;
+  //return missingResultsOmitted;
+  return 0;
 }
 
 module.exports = se;
