@@ -30,6 +30,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
+          command: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+
+      - run:
           command: mkdir -p $CIRCLE_TEST_REPORTS/junit/
       - run:
           name: "JavaScript Test Suite"
@@ -39,9 +42,9 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: $CIRCLE_TEST_REPORTS/junit/
 
       - store_test_results:
-          path: $CIRCLE_TEST_REPORTS/junit/
+          path: /tmp/circleci-test-results
       - store_artifacts:
-          path: $CIRCLE_TEST_REPORTS/junit
+          path: /tmp/circleci-test-results
 
 workflows:
   version: 2
@@ -51,7 +54,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "21 * * * *" # every hour
+          cron: "8 * * * *" # every hour
           filters:
             branches:
               only:
