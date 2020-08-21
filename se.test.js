@@ -28,5 +28,6 @@ let queryArray = [
 //expect there to be 0 missing results
 test("Test for missing expected results", async () => {
   jest.setTimeout(500000);
+  let emptyArray = [];
   return expect(se()).resolves.toBe(0);
 });
