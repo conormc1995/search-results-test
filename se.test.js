@@ -27,8 +27,8 @@ let queryArray = [
   "health",
 ];
 //expect there to be 0 missing results
-test("Test for missing expected results", async () => {
+test("Test for missing expected results", () => {
   jest.setTimeout(600000);
   let emptyArray = [];
-  return expect(hello()).resolves.toBe(0);
+  return expect(hello()).toBe(0);
 });

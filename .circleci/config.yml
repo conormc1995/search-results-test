@@ -35,7 +35,7 @@ jobs:
       - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
-          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit
+          command: npm test --ci --runInBand --reporters=default --reporters=jest-junit --detectOpenHandles
           environment:
             JEST_JUNIT_OUTPUT_DIR: /tmp/circleci-test-results
 

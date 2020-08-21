@@ -49,7 +49,7 @@ async function se() {
   return 0;
 }
 
-async function hello() {
+function hello() {
   return 0;
 }
 
