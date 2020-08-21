@@ -34,6 +34,7 @@ jobs:
 
       - run:
           command: mkdir -p $CIRCLE_TEST_REPORTS/junit/
+
       - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
@@ -54,7 +55,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "5 * * * *" # every hour
+          cron: "23 * * * *" # every hour
           filters:
             branches:
               only:
