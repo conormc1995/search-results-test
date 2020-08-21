@@ -49,6 +49,11 @@ async function se() {
   return 0;
 }
 
+async function hello() {
+  return 0;
+}
+
+module.exports = hello;
 module.exports = se;
 
 async function getActualResults(queries) {
