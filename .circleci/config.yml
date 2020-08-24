@@ -51,9 +51,9 @@ workflows:
       - build
     triggers:
       - schedule:
-          # test on schedule using cron syntax
-          cron: "47 * * *" # every hour
-          filters:
-            branches:
-              only:
-                - master
+        # test on schedule using cron syntax
+        cron: "50 * * * *" # every hour
+        filters:
+          branches:
+            only:
+              - master
