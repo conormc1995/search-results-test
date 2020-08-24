@@ -60,7 +60,7 @@ describe("Categories - Titles", () => {
   let browser;
   let page;
   beforeAll(async () => {
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch();
   });
   afterAll(async () => {
     await browser.close();
