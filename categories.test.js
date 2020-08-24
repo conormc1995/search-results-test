@@ -173,7 +173,7 @@ describe("Categories - Course Order", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
+
     expect(secondLevelTitles).toEqual(actualTitles);
   });
 
