@@ -56,11 +56,11 @@ const thirdLevelTitles = [
 
 describe("Categories - Titles", () => {
   //Setup
-  const { chromium } = require("playwright");
+  const { chromium, firefox } = require("playwright");
   let browser;
   let page;
   beforeAll(async () => {
-    browser = await chromium.launch({
+    browser = await firefox.launch({
       args: ["--no-sandbox"],
     });
   });
