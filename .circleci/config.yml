@@ -40,9 +40,9 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./circleci-test-results/junit/test-report.xml
 
       - store_test_results:
-          path: ./circleci-test-results/junit
+          path: circleci-test-results
       - store_artifacts:
-          path: ./circleci-test-results/junit
+          path: circleci-test-results
 
 workflows:
   version: 2
@@ -52,7 +52,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "21 * * * *" # every hour
+          cron: "23 * * * *" # every hour
           filters:
             branches:
               only:
