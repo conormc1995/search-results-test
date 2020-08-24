@@ -60,7 +60,9 @@ describe("Categories - Titles", () => {
   let browser;
   let page;
   beforeAll(async () => {
-    browser = await chromium.launch();
+    browser = await chromium.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
   });
   afterAll(async () => {
     await browser.close();
