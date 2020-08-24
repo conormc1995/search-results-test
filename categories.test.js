@@ -90,7 +90,6 @@ describe("Categories - Titles", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
     expect(actualTitles.map((a) => a.id).sort()).toEqual(
       topLevelTitles.map((a) => a.id).sort()
     );
@@ -111,7 +110,6 @@ describe("Categories - Titles", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
     expect(secondLevelTitles.map((a) => a.id).sort()).toEqual(
       actualTitles.map((a) => a.id).sort()
     );
@@ -132,7 +130,6 @@ describe("Categories - Titles", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
     expect(thirdLevelTitles.map((a) => a.id).sort()).toEqual(
       actualTitles.map((a) => a.id).sort()
     );
@@ -157,7 +154,7 @@ describe("Categories - Course Order", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
+
     expect(actualTitles).toEqual(topLevelTitles);
   });
 
@@ -195,7 +192,6 @@ describe("Categories - Course Order", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
     expect(thirdLevelTitles).toEqual(actualTitles);
   });
 });

@@ -90,7 +90,6 @@ describe("Search Filters", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
     expect(actualTitles.map((a) => a.id).sort()).toEqual(
       topLevelTitles.map((a) => a.id).sort()
     );
@@ -111,7 +110,6 @@ describe("Search Filters", () => {
       );
       actualTitles.push(title);
     }
-    console.log(actualTitles);
     expect(thirdLevelTitles.map((a) => a.id).sort()).toEqual(
       actualTitles.map((a) => a.id).sort()
     );
