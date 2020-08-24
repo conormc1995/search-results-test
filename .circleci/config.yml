@@ -40,9 +40,9 @@ jobs:
             JEST_JUNIT_OUTPUT_DIR: ./circleci-test-results/junit/test-report.xml
 
       - store_test_results:
-          path: ./circleci-test-results
+          path: ./circleci-test-results/junit
       - store_artifacts:
-          path: ./circleci-test-results
+          path: ./circleci-test-results/junit
 
 workflows:
   version: 2
