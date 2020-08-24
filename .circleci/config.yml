@@ -33,7 +33,7 @@ jobs:
           command: mkdir -p /tmp/circleci-test-results
 
       - run:
-          name: "Search Testing"
+          name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit --detectOpenHandles
           environment:
@@ -51,9 +51,9 @@ workflows:
       - build
     triggers:
       - schedule:
-        # test on schedule using cron syntax
-        cron: "50 * * * *" # every hour
-        filters:
-          branches:
-            only:
-              - master
+          # test on schedule using cron syntax
+          cron: "53 * * * *" # every hour
+          filters:
+            branches:
+              only:
+                - master
