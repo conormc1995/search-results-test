@@ -23,7 +23,7 @@
     "testResultsProcessor": "./node_modules/jest-junit",
     "suiteName": "jest tests",
     "outputDirectory": ".",
-    "outputName": "junit.xml",
+    "outputName": "test-report.xml",
     "uniqueOutputName": "false",
     "classNameTemplate": "{classname}-{title}",
     "titleTemplate": "{classname}-{title}",

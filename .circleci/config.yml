@@ -52,7 +52,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "* * * * *" # every hour
+          cron: "11 * * * *" # every hour
           filters:
             branches:
               only:
