@@ -33,7 +33,7 @@ jobs:
           command: mkdir -p /tmp/circleci-test-results
 
       - run:
-          name: "JavaScript Test Suite"
+          name: "Search Testing"
           # yarn here makes sure we are using the local jest binary
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit --detectOpenHandles
           environment:
