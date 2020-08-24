@@ -30,19 +30,19 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: mkdir -p ./circleci-test-results/junit
+          command: mkdir -p /tmp/tests
 
       - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit --detectOpenHandles
           environment:
-            JEST_JUNIT_OUTPUT_DIR: /root/project/circleci-test-results/junit/test-report.xml
+            JEST_JUNIT_OUTPUT_DIR: /tmp/
 
       - store_test_results:
-          path: ./circleci-test-results
+          path: /tmp/
       - store_artifacts:
-          path: ./circleci-test-results
+          path: /tmp/
 
 workflows:
   version: 2
