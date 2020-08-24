@@ -30,19 +30,19 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          command: mkdir -p /tmp/tests
+          command: mkdir -p /tmp/junit
 
       - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit --detectOpenHandles
           environment:
-            JEST_JUNIT_OUTPUT_DIR: .
+            JEST_JUNIT_OUTPUT_DIR: /tmp/junit
 
       - store_test_results:
-          path: .
+          path: /tmp/junit
       - store_artifacts:
-          path: .
+          path: /tmp/junit
 
 workflows:
   version: 2
