@@ -61,7 +61,7 @@ describe("Categories - Titles", () => {
   let page;
   beforeAll(async () => {
     browser = await chromium.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: ["--no-sandbox"],
     });
   });
   afterAll(async () => {
