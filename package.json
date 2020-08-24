@@ -15,9 +15,10 @@
     "spreadsheets": "^0.1.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest -c config.e2e.config.js"
   },
   "jest": {
+    "preset": "jest-playwright-preset",
     "testResultsProcessor": "./node_modules/jest-junit-reporter"
   },
   "keywords": [],
