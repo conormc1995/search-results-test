@@ -1,5 +1,18 @@
-(async () => {
-    const browser = await chromium.launch();
-    // Create pages, interact with UI elements, assert values
+describe("Categories - Titles", () => {
+  //Setup
+  const { chromium, firefox } = require("playwright");
+  let browser;
+  let page;
+  beforeAll(async () => {
+    browser = await firefox.launch();
+  });
+  afterAll(async () => {
     await browser.close();
-  })();
+  });
+  beforeEach(async () => {
+    page = await browser.newPage();
+  });
+  afterEach(async () => {
+    await page.close();
+  });
+});
