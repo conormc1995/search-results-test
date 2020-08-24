@@ -5,7 +5,7 @@ module.exports = {
   contextOptions: {
     ignoreHTTPSErrors: true,
     viewport: {
-      width: 1920,
+      width: 1900,
       height: 1080,
     },
   },

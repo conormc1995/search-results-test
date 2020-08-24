@@ -1,4 +1,4 @@
-//Global Variables
+//Global Variables 1
 const topLevelTitles = [
   "CompTIA A+ 1000 - Part 2",
   "Guide to Zoom Video Conferencing",
