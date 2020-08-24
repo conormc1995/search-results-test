@@ -60,9 +60,7 @@ describe("Categories - Titles", () => {
   let browser;
   let page;
   beforeAll(async () => {
-    browser = await firefox.launch({
-      args: ["--no-sandbox"],
-    });
+    browser = await firefox.launch();
   });
   afterAll(async () => {
     await browser.close();
