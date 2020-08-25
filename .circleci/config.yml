@@ -37,12 +37,12 @@ jobs:
           # yarn here makes sure we are using the local jest binary
           command: npm test --ci --runInBand --reporters=default --reporters=jest-junit --detectOpenHandles
           environment:
-            JEST_JUNIT_OUTPUT_DIR: /tmp/junit/test-report.xml
+            JEST_JUNIT_OUTPUT_DIR: /tmp/test-report.xml
 
       - store_test_results:
-          path: /tmp/junit
+          path: /tmp
       - store_artifacts:
-          path: /tmp/junit
+          path: /tmp
 
 workflows:
   version: 2
@@ -52,7 +52,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "5 * * * *" # every hour
+          cron: "24 * * * *" # every hour
           filters:
             branches:
               only:
