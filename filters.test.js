@@ -90,7 +90,14 @@ describe("Filters Tests", () => {
       await page.waitForSelector(".start_now_course_tile", {
         waitFor: "visible",
       });
-      let courses = await page.$$("span.start_now_course_tile");
+      
+      let courses = await page.$$(".start_now_course_tile");
+      for (let courses of courses) {
+        const attr = await page.evaluate(
+          (el) => el.getAttribute("title"),
+          course
+        );
+      console.log(course);
       let numberOfCourses = courses.length;
       expect(numberOfCourses).toBe(20);
     });
