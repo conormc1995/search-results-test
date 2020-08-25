@@ -24,8 +24,8 @@
       "default",
       "jest-junit"
     ],
-    "suiteName": "jest tests",
-    "outputDirectory": "/tmp",
+    "suiteName": "filters.test.js",
+    "outputDirectory": "tests",
     "outputName": "test-report.xml",
     "uniqueOutputName": "false",
     "classNameTemplate": "{classname}-{title}",
