@@ -91,8 +91,8 @@ describe("Filters Tests", () => {
         waitFor: "visible",
       });
       let courses = await page.$$("span.start_now_course_tile");
-      let numberOfCourses = courses.length();
-      expect(numberOfCourses).toEqual(20);
+      let numberOfCourses = courses.length;
+      expect(numberOfCourses).toBe(20);
     });
 
     /*---------------------*/
@@ -108,6 +108,8 @@ describe("Filters Tests", () => {
       await page.waitForSelector(".start_now_course_tile", {
         waitFor: "visible",
       });
+
+      let courses = await page.$$("span.start_now_course_tile");
 
       let courseIndex = 0;
       for (let course of courses) {
@@ -136,6 +138,8 @@ describe("Filters Tests", () => {
       await page.waitForSelector(".start_now_course_tile", {
         waitFor: "visible",
       });
+
+      let courses = await page.$$("span.start_now_course_tile");
 
       let courseIndex = 0;
       for (let course of courses) {
