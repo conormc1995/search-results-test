@@ -54,11 +54,16 @@ const thirdLevelTitles = [
   "Software Testing - Condition Coverage and Mutation Testing Strategies - Revised",
 ];
 
-describe("Search Filters", () => {
+describe("Filters Tests", () => {
+  /*---------------------*/
+  /* Test number of courses */
+  /*---------------------*/
+
   //Setup
   const { chromium, firefox } = require("playwright");
   let browser;
   let page;
+  let query = "Project Management";
   beforeAll(async () => {
     browser = await firefox.launch();
   });
@@ -67,51 +72,81 @@ describe("Search Filters", () => {
   });
   beforeEach(async () => {
     page = await browser.newPage();
+    page.goto("http://www.alison.com");
   });
   afterEach(async () => {
     await page.close();
   });
 
-  //Tests
-  it("Check Query", async () => {
-    const actualTitles = [];
-
-    await page.goto("https://alison.com/courses/it");
-    await page.waitForSelector(".start_now_course_tile", {
-      waitFor: "visible",
+  describe("English Locale", () => {
+    /*---------------------*/
+    /* Test number of courses */
+    /*---------------------*/
+    it("Check Number of Courses", async () => {
+      await page.waitForSelector("#header-search-form", {
+        waitFor: "visible",
+      });
+      await page.type("[name=query]", query);
+      await page.waitForSelector(".start_now_course_tile", {
+        waitFor: "visible",
+      });
+      let courses = await page.$$("span.start_now_course_tile");
+      let numberOfCourses = courses.length();
+      expect(numberOfCourses).toEqual(20);
     });
-    let courses = await page.$$("span.start_now_course_tile");
 
-    let courseIndex = 0;
-    for (let course of courses) {
-      const title = await page.evaluate(
-        (el) => el.getAttribute("title"),
-        course
+    /*---------------------*/
+    /* Titles of courses */
+    /*---------------------*/
+    it("Check Titles of Courses", async () => {
+      const actualTitles = [];
+      await page.waitForSelector("#header-search-form", {
+        waitFor: "visible",
+      });
+      await page.type("[name=query]", query);
+
+      await page.waitForSelector(".start_now_course_tile", {
+        waitFor: "visible",
+      });
+
+      let courseIndex = 0;
+      for (let course of courses) {
+        const title = await page.evaluate(
+          (el) => el.getAttribute("title"),
+          course
+        );
+        actualTitles.push(title);
+      }
+
+      expect(actualTitles.map((a) => a.id).sort()).toEqual(
+        expectedTitles.map((a) => a.id).sort()
       );
-      actualTitles.push(title);
-    }
-    expect(actualTitles.map((a) => a.id).sort()).toEqual(
-      topLevelTitles.map((a) => a.id).sort()
-    );
-  });
-
-  it("Check Query - Filtered", async () => {
-    const actualTitles = [];
-    await page.goto("https://alison.com/courses/software-testing");
-    await page.waitForSelector(".start_now_course_tile", {
-      waitFor: "visible",
     });
-    let courses = await page.$$("span.start_now_course_tile");
 
-    for (let course of courses) {
-      const title = await page.evaluate(
-        (el) => el.getAttribute("title"),
-        course
-      );
-      actualTitles.push(title);
-    }
-    expect(thirdLevelTitles.map((a) => a.id).sort()).toEqual(
-      actualTitles.map((a) => a.id).sort()
-    );
+    /*---------------------*/
+    /* Order of courses*/
+    /*---------------------*/
+    it("Check Order of Courses", async () => {
+      const actualTitles = [];
+      await page.waitForSelector("#header-search-form", {
+        waitFor: "visible",
+      });
+      await page.type("[name=query]", query);
+
+      await page.waitForSelector(".start_now_course_tile", {
+        waitFor: "visible",
+      });
+
+      let courseIndex = 0;
+      for (let course of courses) {
+        const title = await page.evaluate(
+          (el) => el.getAttribute("title"),
+          course
+        );
+        actualTitles.push(title);
+      }
+
+      expect(actualTitles).toEqual(expectedTitles);
+    });
   });
 });
