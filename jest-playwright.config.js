@@ -1,7 +1,6 @@
 module.exports = {
   launchOptions: {
-    headless: true,
-    args: ["--no-sandbox"],
+    headless: false,
   },
   contextOptions: {
     ignoreHTTPSErrors: true,
@@ -10,6 +9,6 @@ module.exports = {
       height: 1080,
     },
   },
-  browsers: ["chromium"],
+  browsers: ["firefox"],
   devices: [],
 };

@@ -64,7 +64,7 @@ describe("Query Tests - English Locale", () => {
   });
   beforeEach(async () => {
     page = await browser.newPage();
-    page.goto("https://www.alison.com");
+    page.goto("http://www.alison.com");
   });
   afterEach(async () => {
     await page.close();
@@ -82,11 +82,6 @@ describe("Query Tests - English Locale", () => {
     await page.waitForSelector(".start_now_course_tile", {
       waitFor: "visible",
     });
-
-    await page.check("#project-management");
-    await page.check("#duration_7-10hours");
-    await page.check("#diploma");
-    await page.check("#level-1");
 
     let courses = await page.$$(".start_now_course_tile");
     let numberOfCourses = 0;
@@ -110,11 +105,6 @@ describe("Query Tests - English Locale", () => {
     await page.waitForSelector(".start_now_course_tile", {
       waitFor: "visible",
     });
-
-    await page.check("#project-management");
-    await page.check("#duration_7-10hours");
-    await page.check("#diploma");
-    await page.check("#level-1");
 
     let courses = await page.$$("span.start_now_course_tile");
 
@@ -148,11 +138,6 @@ describe("Query Tests - English Locale", () => {
     await page.waitForSelector(".start_now_course_tile", {
       waitFor: "visible",
     });
-
-    await page.check("#project-management");
-    await page.check("#duration_7-10hours");
-    await page.check("#diploma");
-    await page.check("#level-1");
 
     let courses = await page.$$("span.start_now_course_tile");
 
@@ -207,11 +192,6 @@ describe("Query Tests - Spanish Locale", () => {
       waitFor: "visible",
     });
 
-    await page.check("#project-management");
-    await page.check("#duration_7-10hours");
-    await page.check("#diploma");
-    await page.check("#level-1");
-
     let courses = await page.$$(".start_now_course_tile");
     let numberOfCourses = 0;
     for (let x of courses) {
@@ -234,11 +214,6 @@ describe("Query Tests - Spanish Locale", () => {
     await page.waitForSelector(".start_now_course_tile", {
       waitFor: "visible",
     });
-
-    await page.check("#project-management");
-    await page.check("#duration_7-10hours");
-    await page.check("#diploma");
-    await page.check("#level-1");
 
     let courses = await page.$$("span.start_now_course_tile");
 
@@ -272,11 +247,6 @@ describe("Query Tests - Spanish Locale", () => {
     await page.waitForSelector(".start_now_course_tile", {
       waitFor: "visible",
     });
-
-    await page.check("#project-management");
-    await page.check("#duration_7-10hours");
-    await page.check("#diploma");
-    await page.check("#level-1");
 
     let courses = await page.$$("span.start_now_course_tile");
 
