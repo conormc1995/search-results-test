@@ -1,11 +1,12 @@
 module.exports = {
   launchOptions: {
-    headless: false,
+    headless: true,
+    args: ["--no-sandbox"],
   },
   contextOptions: {
     ignoreHTTPSErrors: true,
     viewport: {
-      width: 1900,
+      width: 1920,
       height: 1080,
     },
   },
