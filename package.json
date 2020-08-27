@@ -26,12 +26,12 @@
     ],
     "suiteName": "jest tests",
     "outputDirectory": "tests",
-    "outputName": "test-report.xml",
+    "outputName": "junit.xml",
     "uniqueOutputName": "false",
     "classNameTemplate": "{classname}-{title}",
     "titleTemplate": "{classname}-{title}",
     "ancestorSeparator": " › ",
-    "usePathForSuiteName": "false"
+    "usePathForSuiteName": "true"
   },
   "keywords": [],
   "author": "",
