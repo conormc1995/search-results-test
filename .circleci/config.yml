@@ -29,6 +29,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run: mkdir -p /tmp/circleci-test-results
+
       - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
@@ -49,7 +51,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "36 * * * *" # every hour
+          cron: "48 * * * *" # every hour
           filters:
             branches:
               only:
