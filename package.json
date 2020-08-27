@@ -22,6 +22,7 @@
   "jest": {
     "preset": "jest-playwright-preset",
     "testResultsProcessor": [
+      "default",
       "jest-junit"
     ],
     "suiteName": "jest tests",
