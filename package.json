@@ -25,7 +25,7 @@
       "jest-junit"
     ],
     "suiteName": "jest tests",
-    "outputDirectory": "/tmp/circleci-test-results",
+    "outputDirectory": "test",
     "outputName": "test-report.xml",
     "uniqueOutputName": "false",
     "classNameTemplate": "{classname}-{title}",
