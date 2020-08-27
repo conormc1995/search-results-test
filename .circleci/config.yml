@@ -29,6 +29,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run: mkdir -p tests
+
       - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
