@@ -3,7 +3,6 @@ const topLevelTitles = [
   "CompTIA A+ 1000 - Part 2",
   "Guide to Zoom Video Conferencing",
   "Diploma in Information Technology Management - Revised 2017",
-  "Windows 10 Course (2020 Edition)",
   "Diploma in Practical Machine Learning with Tensor Flow",
   "Advanced Diploma in Computer Vision",
   "Diploma in Ethical Hacking",
@@ -20,6 +19,7 @@ const topLevelTitles = [
   "Understanding Information Control for IT Managers - Revised",
   "Wide Area Networks and Networking Services and Security - Revised",
   "Microsoft Project 2013 for Beginners - Start Your MS Project Journey",
+  "Diploma in DevOps Engineering - Kubernetes, Docker and Google Cloud",
 ];
 
 const secondLevelTitles = [
@@ -137,7 +137,7 @@ describe("Categories - Titles", () => {
 });
 
 describe("Categories - Course Order", () => {
-  it("Top Level Categories - Check Titles", async () => {
+  it("Top Level Categories - Check Course Order", async () => {
     const actualTitles = [];
 
     await page.goto("https://alison.com/courses/it");
@@ -154,7 +154,7 @@ describe("Categories - Course Order", () => {
       );
       actualTitles.push(title);
     }
-
+    console.log(actualTitles);
     expect(actualTitles).toEqual(topLevelTitles);
   });
 
