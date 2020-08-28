@@ -1,8 +1,8 @@
 //Global Variables 1
 const englishQuery = [
+  "Introduction to Project Management",
   "Diploma - Project Management in Practice",
   "Project Management Professional (PMP)® Exam Prep",
-  "Introduction to Project Management",
   "Project Management in Practice - Monitoring, Controlling and Change Management",
   "Diploma in Project Management - Revised 2017",
   "Diploma in Modern Project Management - Revised",
@@ -13,8 +13,8 @@ const englishQuery = [
   "Introduction to Modern Project Management Theory and Practice - Revised",
   "Modern Project Management - Quality, Risk, Procurement and Project Closeout - Revised",
   "Modern Project Management - Working with Clients and Project Teams - Revised",
-  "Production and Operation Management; Project Management",
   "Modern Project Management - Managing the Start-up, Scheduling and Budgeting - Revised",
+  "Production and Operation Management; Project Management",
   "Microsoft Project 2013 Advanced - Supercharge Your MS Project Journey",
   "Agile Essentials: A Practical Guide to the Agile Process",
   "Microsoft Project 2013 for Beginners - Start Your MS Project Journey",
@@ -24,29 +24,28 @@ const englishQuery = [
 
 const spanishQuery = [
   "Fundamentos de gestión del proyecto revisado de 2017",
+  "Gestión de producción y operación; gestión de proyectos",
   "Gestión del rendimiento y planificación estratégica",
   "Diploma en Gestión Estratégica del Rendimiento",
   "Gestión del rendimiento: revisión y análisis",
   "Gestión de proyectos modernos-Calidad, Riesgo, Adquisición y Closeout de proyecto-Revisado",
   "Gestión de proyectos modernos-Gestión de la creación, la planificación y la presupuestación-Revisión",
   "Gestión de proyectos modernos-Trabajar con Clientes y Equipos de Proyecto-Revisado",
+  "Gestión financiera para gestores-Estimación de flujo de caja",
   "Gestión de proyectos en práctica-Planificación, planificación y gestión de recursos",
   "Maths de proyecto de certificado-Nivel superior-Revisado",
   "Gestión de proyectos en práctica-Supervisión, control y gestión de cambios",
-  "Diplomado avanzado en ciencia y tecnología del suelo",
   "Diploma en Gestión del Estrés-Revisado",
   "Diploma en gestión del medio ambiente",
-  "Evaluación de rendimiento y PMS en organizaciones indias",
+  "Diploma avanzado en gestión financiera para gestores",
   "Introducción a la gestión del estrés-Revisado",
+  "Diplomado avanzado en ciencia y tecnología del suelo",
   "Diploma en Gestión de Proyectos-revisado 2017",
+  "Evaluación de rendimiento y PMS en organizaciones indias",
   "Microsoft Project 2013 para principiantes-Inicie el proyecto MS Project Journey",
-  "Maths de proyecto de certificado junior-Nivel superior-Revisado",
-  "Diploma en Business Management & Entrepreneurship-revisado 2017",
-  "Desarrollo de rasgos clave y estrategias de supervivencia",
 ];
 
 describe("Query Tests - English Locale", () => {
-  jest.setTimeout(30000);
   /*---------------------*/
   /* Setup */
   /*---------------------*/
@@ -149,13 +148,12 @@ describe("Query Tests - English Locale", () => {
       );
       actualTitles.push(title);
     }
-
+    console.log(actualTitles);
     expect(actualTitles).toEqual(englishQuery);
   });
 });
 
 describe("Query Tests - Spanish Locale", () => {
-  jest.setTimeout(30000);
   /*---------------------*/
   /* Setup */
   /*---------------------*/
@@ -258,7 +256,7 @@ describe("Query Tests - Spanish Locale", () => {
       );
       actualTitles.push(title);
     }
-
+    console.log(actualTitles);
     expect(actualTitles).toEqual(spanishQuery);
   });
 });
