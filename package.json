@@ -20,7 +20,7 @@
   },
   "jest": {
     "preset": "jest-playwright-preset",
-    "testResultsProcessor": "./node_modules/jest-junit-reporter"
+    "testResultsProcessor": "jest-junit"
   },
   "keywords": [],
   "author": "",
