@@ -32,7 +32,7 @@ jobs:
       - run:
           name: "JavaScript Test Suite"
           # yarn here makes sure we are using the local jest binary
-          command: npm test --ci --runInBand --testResultsProcessor="./node_modules/jest-junit-reporter" --detectOpenHandles
+          command: npm test --ci --runInBand --config=jest.config.ci.js --detectOpenHandles
           environment:
             TEST_REPORT_PATH: tests
 
@@ -49,7 +49,7 @@ workflows:
     triggers:
       - schedule:
           # test on schedule using cron syntax
-          cron: "30 * * * *" # every hour
+          cron: "7 * * * *" # every hour
           filters:
             branches:
               only:
