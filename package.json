@@ -16,7 +16,7 @@
     "spreadsheets": "^0.1.0"
   },
   "scripts": {
-    "test": "jest -c config.e2e.config.js"
+    "test": "jest -c config.e2e.config.js --testResultsProcessor=jest-junit"
   },
   "jest": {
     "preset": "jest-playwright-preset",
@@ -24,6 +24,16 @@
       "default",
       "jest-junit"
     ]
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "outputDirectory": ".",
+    "outputName": "junit.xml",
+    "uniqueOutputName": "false",
+    "classNameTemplate": "{classname}-{title}",
+    "titleTemplate": "{classname}-{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
   },
   "keywords": [],
   "author": "",
