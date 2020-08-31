@@ -20,18 +20,7 @@
   },
   "jest": {
     "preset": "jest-playwright-preset",
-    "testResultsProcessor": [
-      "default",
-      "jest-junit"
-    ],
-    "suiteName": "jest tests",
-    "outputDirectory": "tests",
-    "outputName": "junit.xml",
-    "uniqueOutputName": "false",
-    "classNameTemplate": "{classname}-{title}",
-    "titleTemplate": "{classname}-{title}",
-    "ancestorSeparator": " › ",
-    "usePathForSuiteName": "true"
+    "testResultsProcessor": "./node_modules/jest-junit-reporter"
   },
   "keywords": [],
   "author": "",

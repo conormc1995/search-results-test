@@ -79,21 +79,22 @@ describe("Query Tests - English Locale", () => {
     });
     await page.type("[name=query]", query);
     await page.keyboard.press("Enter", { delay: 2000 });
-    await page.waitForSelector(".start_now_course_tile", {
+    await page.waitForSelector("#duration_21hours", {
       waitFor: "visible",
     });
 
-    await page.check("#project-management");
+    await page.check("#duration_21hours");
+    /*await page.check("#project-management");
     await page.check("#duration_7-10hours");
     await page.check("#diploma");
-    await page.check("#level-1");
+    await page.check("#level-1");*/
 
     let courses = await page.$$(".start_now_course_tile");
     let numberOfCourses = 0;
     for (let x of courses) {
       numberOfCourses++;
     }
-    expect(numberOfCourses).toBe(20);
+    expect(numberOfCourses).toBe(6);
   });
 
   /*---------------------*/

@@ -6,8 +6,8 @@ module.exports = {
   contextOptions: {
     ignoreHTTPSErrors: true,
     viewport: {
-      width: 1920,
-      height: 1080,
+      width: 1600,
+      height: 1000,
     },
   },
   browsers: ["firefox"],

@@ -63,7 +63,9 @@ describe("Query Tests - English Locale", () => {
   });
   beforeEach(async () => {
     page = await browser.newPage();
-    page.goto("http://www.alison.com");
+    page.goto(
+      "https://alison.com/courses?category=leadership-and-management&duration=2-3%20hours&level=1&language=en&query=project%20management"
+    );
   });
   afterEach(async () => {
     await page.close();
@@ -73,21 +75,16 @@ describe("Query Tests - English Locale", () => {
   /* Test number of courses */
   /*---------------------*/
   it("Check Number of Courses", async () => {
-    await page.waitForSelector("#header-search-form", {
-      waitFor: "visible",
-    });
-    await page.type("[name=query]", query);
-    await page.keyboard.press("Enter", { delay: 2000 });
     await page.waitForSelector(".start_now_course_tile", {
       waitFor: "visible",
     });
-
     let courses = await page.$$(".start_now_course_tile");
     let numberOfCourses = 0;
     for (let x of courses) {
       numberOfCourses++;
     }
-    expect(numberOfCourses).toBe(20);
+    console.log(numberOfCourses);
+    expect(numberOfCourses).toBe(12);
   });
 
   /*---------------------*/
@@ -95,11 +92,6 @@ describe("Query Tests - English Locale", () => {
   /*---------------------*/
   it("Check Titles of Courses", async () => {
     const actualTitles = [];
-    await page.waitForSelector("#header-search-form", {
-      waitFor: "visible",
-    });
-    await page.type("[name=query]", query);
-    await page.keyboard.press("Enter", { delay: 2000 });
 
     await page.waitForSelector(".start_now_course_tile", {
       waitFor: "visible",
