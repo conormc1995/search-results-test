@@ -38,17 +38,3 @@ jobs:
           path: tests
       - store_artifacts:
           path: tests
-
-workflows:
-  version: 2
-  on_schedule:
-    jobs:
-      - build
-    triggers:
-      - schedule:
-          # test on schedule using cron syntax
-          cron: "41 * * * *" # every hour
-          filters:
-            branches:
-              only:
-                - master
