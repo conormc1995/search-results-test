@@ -230,6 +230,30 @@ async function compareResults(idealCourseList, actualCourseList) {
 
   module.exports = checkExpectedResultsArePresent;
 
+  async function saveResults(){
+    fs.readFile('./result-history1.json', function(err, data) {
+        var parse_obj = JSON.parse(data);
+        parse_obj['courseHistory'].push(["two"]);
+        console.log(parse_obj);
+        
+        writeToFile(parse_obj);
+    });
+    
+    
+    function writeToFile(coursesComplete){
+    
+      fs.writeFile("./result-history1.json", JSON.stringify(coursesComplete), function(err) {
+        if(err) {
+              console.log(err);
+        } 
+        else {
+          console.log("Output"+ coursesComplete);
+        }
+      }); 
+    
+    }
+    }
+
   await sheet.saveUpdatedCells();
 }
 

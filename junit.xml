@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="1" time="268.096">
+  <testsuite name="se.test.js" errors="0" failures="1" skipped="0" timestamp="2020-12-01T08:32:46" time="264.622" tests="1">
+    <testcase classname="-Test for uncommon results against monthly average" name="-Test for uncommon results against monthly average" time="262.843">
+      <failure>ReferenceError: fileContents is not defined
+    at saveResults (C:\Users\EllaM\Documents\GitHub\search-results-test\se.js:284:3)
+    at se (C:\Users\EllaM\Documents\GitHub\search-results-test\se.js:28:28)</failure>
+      <failure>ReferenceError: fileContents is not defined
+    at saveResults (C:\Users\EllaM\Documents\GitHub\search-results-test\se.js:284:3)
+    at se (C:\Users\EllaM\Documents\GitHub\search-results-test\se.js:28:28)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

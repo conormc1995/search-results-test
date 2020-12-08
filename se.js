@@ -2,58 +2,39 @@ const playwright = require("playwright");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 const nodemailer = require("nodemailer");
 const creds = require("./client_secret.json");
+let fs = require('fs').promises;
 
 const doc = new GoogleSpreadsheet(
   "1o0kJeili9G6hAlGf8fy3ZsM9VvEcqjYOFAqzBm3j9vM"
 );
 
-//E-mail
-var transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "conormcloughlin64@gmail.com",
-    pass: "galway13",
-  },
-});
-
-var mailOptions = {
-  from: "conormcloughlin64@gmail.com",
-  to: "cmcloughlin@alison.com",
-  subject: "Sending Email using Node.js",
-  text: "That was easy!",
-};
 
 //Globals
 let numberOfQueries = 50;
 let numberOfIdealResults = 20;
 let activeCells = "A1:AZ40";
+let dayIndex = 0;
+let queryIndex = 0;
 
 //MAIN LOOP
 async function se() {
   //get queries from Google Sheet
   let queries = await getQueries();
-  //get ideal Courses from Google Sheet
-  let idealResultsList = await getIdealResults();
+
   //navigate to alison, iterate through each query and grab actual Courses
   let actualResultsList = await getActualResults(queries);
 
-  console.log(actualResultsList);
-  //compare contents of array and output results to separate Google Sheet
-  compareResults(idealResultsList, actualResultsList);
-  let missingResultsOmitted = checkMissingResults(
-    idealResultsList,
-    actualResultsList,
-    queries
-  );
-  //return missingResultsOmitted;
-  return 0;
+  //Grab history of results from file
+  let fileContents = await saveResults(actualResultsList);
+
+
+  //Check actualResults against monthly history
+  let numberOfFlags = await checkMonthlyAverage(actualResultsList, fileContents);
+
+  //return any flagging outliers
+  return numberOfFlags;
 }
 
-function hello() {
-  return 0;
-}
-
-module.exports = hello;
 module.exports = se;
 
 async function getActualResults(queries) {
@@ -93,6 +74,7 @@ async function getActualResults(queries) {
   }
 
   await browser.close();
+
   return actualCourseListMulti;
 }
 
@@ -122,49 +104,63 @@ async function getQueries() {
   return queryList;
 }
 
-async function getIdealResults() {
-  await doc.useServiceAccountAuth({
-    client_email: creds.client_email,
-    private_key: creds.private_key,
+
+async function saveResults(actualResultsList){
+  let fileContents = await fs.readFile('./result-history1.json', 'utf-8', function(err, data) {
+
   });
+/*
+  var parse_obj = JSON.parse(data);
+        parse_obj['courseHistory'].push(["two"]);
+        
+        //writeToFile(parse_obj);
+        let globalarray = Object.values(parse_obj);
+        
 
-  await doc.loadInfo(); // loads document properties and worksheets
+        //console.log(nameValue);
+        
+        return parse_obj;
+    });
 
-  const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id]
-  console.log("Getting Ideal Results...");
-
-  //start logic
-
-  let idealResults = [];
-  let idealResultsMulti = [];
-  var queryIndex2;
-  var i;
-
-  await sheet.loadCells(activeCells);
-
-  //iterate through each query
-  for (queryIndex2 = 0; queryIndex2 < numberOfQueries; queryIndex2++) {
-    //fill idealResults array
-    for (i = 1; i < numberOfIdealResults + 1; i++) {
-      const courseNameCell = await sheet.getCell(i, queryIndex2);
-      if (courseNameCell.value != 0) {
-        idealResults.push(courseNameCell.value);
+    //result = Object.values(result);
+    result = JSON.parse(result);
+    result = Object.values(result);
+    result = result[0];
+    console.log(result[0]);
+  */
+  
+  
+  function writeToFile(coursesComplete){
+  
+    fs.writeFile("./result-history1.json", JSON.stringify(coursesComplete), function(err) {
+      if(err) {
+            console.log(err);
+      } 
+      else {
+        console.log("Output");
       }
-    }
-
-    idealResultsMulti.push(idealResults);
-    idealResults = [];
+    }); 
+  
   }
-  return idealResultsMulti;
-}
+  
+  fileContents = JSON.parse(fileContents);
+  fileContents['courseHistory'].push(actualResultsList);
+  writeToFile(fileContents);
 
-//Checks actualCourseList against idealCourseList outputs results to Google Sheet
-//iterates through each query
-//iterates through each item in actual course list related to that query
-//checks if item is in ideal course list
-//unexpected courses in actual course list are flagged red
-async function compareResults(idealCourseList, actualCourseList) {
-  let queryIndex;
+  fileContents = Object.values(fileContents);
+  fileContents = fileContents[0];
+  //return course history
+  return fileContents;
+  }
+
+async function checkMonthlyAverage(actualResultsList, fileContents){
+  let dayIndex = 0;
+  let queryIndex = 0;
+
+  console.log("Type");
+  console.log(typeof(fileContents));
+  console.log("Contents");
+  console.log(fileContents[dayIndex][queryIndex]);
 
   await doc.useServiceAccountAuth({
     client_email: creds.client_email,
@@ -173,92 +169,101 @@ async function compareResults(idealCourseList, actualCourseList) {
 
   await doc.loadInfo(); // loads document properties and worksheets
 
-  const sheet = doc.sheetsByIndex[1];
+  const sheet = await doc.sheetsByIndex[1];
   await sheet.loadCells(activeCells);
-  let writeCell = sheet.getCell(0, 0);
+  let writeCell = await sheet.getCell(1, 1);
+  writeCell.value = "Habibi";
+
+  let numberOfFlags = 0;
+  /* 
+  
+  Get our test item
+  Grab x course result, from x query
+
+  */
+
 
   for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
-    for (i of actualCourseList[queryIndex]) {
-      //Check if actual course is in list of expect results
-      if (idealCourseList[queryIndex].includes(i)) {
-        let x = actualCourseList[queryIndex].indexOf(i);
-        x = x + 1;
+    for (i of actualResultsList[queryIndex]) {
+      console.log(i);
+      
 
-        writeCell = await sheet.getCell(x, queryIndex);
-        writeCell.clearAllFormatting();
-        writeCell.value = i;
-        //Check if actual course is in same position
-        if (idealCourseList[queryIndex][x - 1] != i) {
-          writeCell.backgroundColor = writeCell.backgroundColor = {
-            red: 1,
-            green: 0.8,
-            blue: 0.6,
-            alpha: 0.3,
-          };
-        }
-      } else {
-        let x = actualCourseList[queryIndex].indexOf(i);
-        x = x + 1;
-        writeCell = await sheet.getCell(x, queryIndex);
-        writeCell.clearAllFormatting();
 
-        writeCell.backgroundColor = {
-          red: 1,
-          green: 0.3,
-          blue: 0.3,
-          alpha: 0.3,
-        };
-        writeCell.value = i;
-      }
-    }
-  }
+            let numberOfOccurrences = 0;
+          
+            
 
-  await sheet.saveUpdatedCells();
+              /* 
+  
+              Loop through each day 
+              Check test item against day and query to see if it includes test item
+              If yes -> Increase counter for number of occurences
+              Color sheet accordingly
+
+              */
+
+
+             for (dayIndex = 0; dayIndex < 2; dayIndex++) {
+
+                
+
+                let x = actualResultsList[queryIndex].indexOf(i);
+                x = x + 1;
+                writeCell = await sheet.getCell(x, queryIndex);
+                writeCell.value = i;
+
+                if (fileContents[dayIndex][queryIndex].includes(i)) {
+                  numberOfOccurrences++;
+                  if (numberOfOccurrences > 2 ){
+                    if (numberOfOccurrences < 2){
+                      writeCell.backgroundColor = {
+                        red: 0,
+                        green: 0,
+                        blue: 1,
+                        alpha: 1,
+                      };
+                      numberOfFlags++;
+                    }
+                    
+                  }
+                }
+
+              /* 
+  
+              if it doesn't occur often
+              flag cell with colour
+              and add a flag for test
+
+              */
+
+                if (numberOfOccurrences < 2){
+                  writeCell.backgroundColor = {
+                    red: 0,
+                    green: 0,
+                    blue: 1,
+                    alpha: 0.3,
+                  };
+                  numberOfFlags++;
+                }
+
+                if (numberOfOccurrences >= 2){
+                  writeCell.backgroundColor = {
+                    red: 0,
+                    green: 1,
+                    blue: 0,
+                    alpha: 0.3,
+                };
+                
+                }
+              }
+              console.log(numberOfOccurrences);
+            }
+          }
+
+
+await sheet.saveUpdatedCells();
+return numberOfFlags;
 }
+  
 
-async function checkMissingResults(idealCourseList, actualCourseList, queries) {
-  let queryIndex;
-  let updatedQueries = [];
-
-  await doc.useServiceAccountAuth({
-    client_email: creds.client_email,
-    private_key: creds.private_key,
-  });
-
-  await doc.loadInfo(); // loads document properties and worksheets
-
-  const sheet = doc.sheetsByIndex[2];
-  await sheet.loadCells(activeCells);
-  let writeCell = sheet.getCell(0, 0);
-
-  for (queryIndex = 0; queryIndex < numberOfQueries; queryIndex++) {
-    //add headings to sheet
-
-    for (let i of idealCourseList[queryIndex]) {
-      let rowNumber = 1;
-      if (i != null) {
-        if (actualCourseList[queryIndex].includes(i)) {
-          console.log("included");
-        } else {
-          writeCell = sheet.getCell(rowNumber, queryIndex);
-
-          writeCell.value = i;
-
-          rowNumber += 1;
-
-          console.log(i);
-          //remove query
-          updatedQueries.push(queries[queryIndex]);
-        }
-      }
-    }
-  }
-
-  await sheet.saveUpdatedCells();
-
-  //remove duplicates
-  let updatedQueriesArray = Array.from(new Set(updatedQueries));
-  return updatedQueriesArray;
-}
-
-se();
+se()
