@@ -2,8 +2,7 @@ const playwright = require("playwright");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 const nodemailer = require("nodemailer");
 const creds = require("./client_secret.json");
-let fsp = require('fs').promises;
-let fs = require('fs');
+let fs = require('fs').promises;
 var smtpTransport = require('nodemailer-smtp-transport');
 var handlebars = require('handlebars');
 
@@ -36,7 +35,7 @@ async function se() {
   //Check actualResults against monthly history
   let numberOfFlags = await checkMonthlyAverage(actualResultsList, fileContents);
 
-  console.log("in main"+numberOfFlags);
+  console.log(numberOfFlags);
   await sendEmail(numberOfFlags);
   //return any flagging outliers
   return numberOfFlags;
@@ -113,7 +112,7 @@ async function getQueries() {
 
 
 async function saveResults(actualResultsList){
-  let fileContents = await fsp.readFile('./result-history1.json', 'utf-8', function(err, data) {
+  let fileContents = await fs.readFile('./result-history1.json', 'utf-8', function(err, data) {
 
   });
 /*
@@ -139,7 +138,7 @@ async function saveResults(actualResultsList){
   
   function writeToFile(coursesComplete){
   
-    fsp.writeFile("./result-history1.json", JSON.stringify(coursesComplete), function(err) {
+    fs.writeFile("./result-history1.json", JSON.stringify(coursesComplete), function(err) {
       if(err) {
             console.log(err);
       } 
@@ -220,6 +219,18 @@ async function checkMonthlyAverage(actualResultsList, fileContents){
                 console.log(fileContents[dayIndex][queryIndex]);
                 if (fileContents[dayIndex][queryIndex].includes(i)) {
                   numberOfOccurrences++;
+                  if (numberOfOccurrences > 2 ){
+                    if (numberOfOccurrences < 2){
+                      writeCell.backgroundColor = {
+                        red: 0,
+                        green: 0,
+                        blue: 1,
+                        alpha: 1,
+                      };
+                      numberOfFlags++;
+                    }
+                    
+                  }
                 }
 
               /* 
@@ -230,29 +241,27 @@ async function checkMonthlyAverage(actualResultsList, fileContents){
 
               */
 
-                
-              }
-              //Outside Day loop
-              if (numberOfOccurrences < 2){
-                writeCell.backgroundColor = {
-                  red: 1,
-                  green: 0,
-                  blue: 0,
-                  alpha: 0.3,
-                };
-                numberOfFlags++;
-              }
+                if (numberOfOccurrences < 2){
+                  writeCell.backgroundColor = {
+                    red: 1,
+                    green: 0,
+                    blue: 0,
+                    alpha: 0.3,
+                  };
+                  numberOfFlags++;
+                }
 
-              if (numberOfOccurrences >= 2){
-                writeCell.backgroundColor = {
-                  red: 1,
-                  green: 1,
-                  blue: 1,
-                  alpha: 1,
-              };
-              
+                if (numberOfOccurrences >= 2){
+                  writeCell.backgroundColor = {
+                    red: 1,
+                    green: 1,
+                    blue: 1,
+                    alpha: 1,
+                };
+                
+                }
               }
-              
+              console.log(numberOfOccurrences);
             }
           }
 
@@ -265,13 +274,9 @@ async function sendEmail(numberOfFlags){
   let uncommonResult = numberOfFlags;
   console.log(uncommonResult);
 
-  
 
-
-
-  var readHTMLFile = async function(path, callback) {
-    fs.readFile(path, {encoding: 'utf-8'}, async function (err, html) {
-      console.log("readfile");
+  var readHTMLFile = function(path, callback) {
+    fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
         if (err) {
             throw err;
             callback(err);
@@ -279,7 +284,7 @@ async function sendEmail(numberOfFlags){
         else {
             console.log("reading html");
             console.log(uncommonResult);
-            await callback(err, html, uncommonResult);
+            readHTMLFileCallback(err, html, uncommonResult);
         }
     });
 };
@@ -294,9 +299,9 @@ smtpTransport = nodemailer.createTransport(smtpTransport({
     }
 }));
 
-readHTMLFile(__dirname + '/htmltemplate/index.htm', readHTMLFileCallback);
+readHTMLFile(__dirname + '/htmltemplate/index.htm');
 
-async function readHTMLFileCallback(err, html, uncommonResult){
+function readHTMLFileCallback(err, html, uncommonResult){
   let commonResult = 1100;
   let testResult = "passed";
     if (uncommonResult > 0){
@@ -311,19 +316,14 @@ async function readHTMLFileCallback(err, html, uncommonResult){
              uncommon: uncommonResult,
              common: commonResult
         };
-        var mailList = [
-          'cmcloughlin@alison.com',
-          'rpavlov@alison.com',
-          'tpotenz@alison.com',
-        ];
         var htmlToSend = template(replacements);
         var mailOptions = {
             from: 'alisonscript@gmail.com',
-            to : mailList,
+            to : 'alisonscript@gmail.com',
             subject : 'Alison Search Testing',
             html : htmlToSend
          };
-        await smtpTransport.sendMail(mailOptions, function (error, response) {
+        smtpTransport.sendMail(mailOptions, function (error, response) {
             if (error) {
                 console.log(error);
             }

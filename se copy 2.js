@@ -230,28 +230,27 @@ async function checkMonthlyAverage(actualResultsList, fileContents){
 
               */
 
+                if (numberOfOccurrences < 2){
+                  writeCell.backgroundColor = {
+                    red: 1,
+                    green: 0,
+                    blue: 0,
+                    alpha: 0.3,
+                  };
+                  numberOfFlags++;
+                }
+
+                if (numberOfOccurrences >= 2){
+                  writeCell.backgroundColor = {
+                    red: 1,
+                    green: 1,
+                    blue: 1,
+                    alpha: 1,
+                };
                 
+                }
               }
               //Outside Day loop
-              if (numberOfOccurrences < 2){
-                writeCell.backgroundColor = {
-                  red: 1,
-                  green: 0,
-                  blue: 0,
-                  alpha: 0.3,
-                };
-                numberOfFlags++;
-              }
-
-              if (numberOfOccurrences >= 2){
-                writeCell.backgroundColor = {
-                  red: 1,
-                  green: 1,
-                  blue: 1,
-                  alpha: 1,
-              };
-              
-              }
               
             }
           }
@@ -264,8 +263,6 @@ return numberOfFlags;
 async function sendEmail(numberOfFlags){
   let uncommonResult = numberOfFlags;
   console.log(uncommonResult);
-
-  
 
 
 
@@ -311,15 +308,10 @@ async function readHTMLFileCallback(err, html, uncommonResult){
              uncommon: uncommonResult,
              common: commonResult
         };
-        var mailList = [
-          'cmcloughlin@alison.com',
-          'rpavlov@alison.com',
-          'tpotenz@alison.com',
-        ];
         var htmlToSend = template(replacements);
         var mailOptions = {
             from: 'alisonscript@gmail.com',
-            to : mailList,
+            to : 'alisonscript@gmail.com',
             subject : 'Alison Search Testing',
             html : htmlToSend
          };
